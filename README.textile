@@ -1,0 +1,75 @@
+h1. renderable
+
+@renderable@ is a wee gem I threw together fairly quickly to [a] scratch an itch, and [b] teach myself some new things. 
+
+It provides a nice simple hook for automagically converting the content of fields containing "Textile":http://textile.sitemonks.com/ into HTML whenever your ActiveRecord model is saved. 
+
+h2. Installation
+
+Is fairly simple.
+
+*1. add @renderable@ to your Gemfile*
+
+<pre>gem "renderable", :git => "git://github.com/jonpearse/renderable.git"</pre>
+
+_(you may also need to add RedCloth to your Gemfile… there’s a weird nuance here I’ve not quite understood)_
+
+*2. add appropriate fields to your database*
+
+Each renderable property of your model requires two database fields—one to store the original Textile content, and the other to store the rendered HTML. By default, this second field has the same name as the first, only with a ‘_rendered’ suffix.
+
+I have created a couple of migration tasks, though, so you can either do this:
+
+<pre><code lang="ruby">create_table :my_models do |t|
+    t.string :foo
+    t.renderable :bar
+    t.integer :baz, :null => false
+end</code></pre>
+
+Or this:
+
+<pre><code lang="ruby">add_renderable :my_models, :my_field</code></pre>
+
+In both cases, a @:string@ type is created by default, but you can override this by specifying the required field type as an additional parameter (@t.renderable :foo, :text@ and @add_renderable :my_models, :my_field, :text@). Additional options (limit, nullability, etc) can be specified as normal.
+
+*3. hook into your model*
+
+Simply add a call to @acts_as_renderable@ in your model:
+
+<pre><code lang="ruby">class MyModel < ActiveRecord::Base
+    …
+    # automatically render ‘body’ and ‘description’ fields
+    acts_as_renderable :fields => [ :body, :description ]
+    …
+end</code></pre>
+
+*4. use*
+
+Your model will now have additional properties containing rendered HTML versions of your textile-ed content. Thus, for the above example:
+
+<pre><code lang="haml">
+-# output the rendered HTML
+.content
+    ~ @my_model.body_rendered.html_safe
+</code></pre>
+
+h2. Why?
+
+Why not?
+
+…
+
+Seriously though, I love Textile and find myself using it all over the place. In a normal path for most Rails developers, I came across "RedCloth":http://redcloth.org and merrily set about writing code.
+
+However after a while, I found myself copy-pasting the same @:before_save@ hook into each of my models—grab a textile field, shove it through RedCloth, and dump the result into a ‘_rendered’ field. It wasn’t very DRY, but it worked.
+
+@renderable@ was the next logical step—I wanted to abstract everything into one place, and I wanted to see what all this ‘gem’ malarkey is about. The result is an insanely simple gem—I think there’s more hook code than business logic—but it works.
+
+
+h2. You’re doing it wrong!/What about %{gem}?
+
+Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot. 
+
+…
+
+Share and enjoy!
