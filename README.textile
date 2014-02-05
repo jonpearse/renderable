@@ -70,6 +70,17 @@ h2. You’re doing it wrong!/What about %{gem}?
 
 Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot. 
 
+h2. Version history
+
+h3. 1.0.1 (2014-02-05)
+
+* added @restrictions@ option to @acts_as_renderable@, allowing the ability to pass restrictions (eg @:filter_html@, @:lite_mode@) to RedCloth
+* added clean-up code to make output of @:lite_mode@ a little more sane
+  
+h3. 1.0.0 (2013-08-17)
+
+Initial release.
+
 …
 
 Share and enjoy!
