@@ -72,6 +72,11 @@ Oh, more than likely. And I’d be _very_ surprised if there wasn’t already so
 
 h2. Version history
 
+h3. 1.0.2 (2014-02-05 - _I was busy…_)
+
+* adding @before_:field_render@ and @after_:field_render@ callbacks
+* making callbacks work in a more Rails-esque way (I’m still learnin’)
+
 h3. 1.0.1 (2014-02-05)
 
 * added @restrictions@ option to @acts_as_renderable@, allowing the ability to pass restrictions (eg @:filter_html@, @:lite_mode@) to RedCloth
