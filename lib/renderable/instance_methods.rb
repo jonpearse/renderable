@@ -9,7 +9,7 @@ module Renderable
         renderable_options[:fields].each do |field|
                     
           content = self[field.to_sym]          
-          self["#{field}#{suff}".to_sym] = content.nil? ? nil : RedCloth.new(content).to_html
+          self["#{field}#{suff}".to_sym] = content.nil? ? nil : RedCloth.new(content, renderable_options[:restrictions]).to_html
           
         end
         

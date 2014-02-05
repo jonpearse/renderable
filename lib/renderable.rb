@@ -30,7 +30,8 @@ module Renderable
       end
       
       # default options
-      options[:suffix] ||= '_rendered'
+      options[:suffix]        ||= '_rendered'
+      options[:restrictions]  ||= []
       
       # store the options
       self.renderable_options = options
