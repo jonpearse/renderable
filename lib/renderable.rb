@@ -38,7 +38,9 @@ module Renderable
       
       # set accessible on fields
       options[:fields].each do |field|
-        attr_accessible field, "#{field}#{options[:suffix]}"
+        if ::Rails::VERSION::STRING < '4.0'
+          attr_accessible field, "#{field}#{options[:suffix]}"
+        end
         
         define_renderable_callbacks :"#{field}_render"
       end

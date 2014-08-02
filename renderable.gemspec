@@ -15,6 +15,5 @@ Gem::Specification.new do |s|
 
   s.files = Dir["lib/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.14"
   s.add_dependency "RedCloth"
 end
