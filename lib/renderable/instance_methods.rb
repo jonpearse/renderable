@@ -6,7 +6,11 @@ module Renderable
                 
         suff = renderable_options[:suffix]
         renderable_options[:fields].each do |field|
+          
+          # skip if the field is unchanged
+          next unless self.changed.include? field.to_s
 
+          # actually render
           run_callbacks(:render) do            
             run_callbacks(:"#{field}_render") do           
                             
