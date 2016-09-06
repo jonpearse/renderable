@@ -1,17 +1,17 @@
 module Renderable
-  
+
   module Schema
     def self.included( base )
-      
+
       ActiveRecord::ConnectionAdapters::Table.send :include, TableDefinition
       ActiveRecord::ConnectionAdapters::TableDefinition.send :include, TableDefinition
       ActiveRecord::ConnectionAdapters::AbstractAdapter.send :include, Statements
-      
+
     end
   end
-  
+
   module Statements
-    
+
     # Adds a renderable column to the specified table.
     #
     # This is reasonably intelligent, and will create any required fields. Thus, if you are adding renderable
@@ -27,17 +27,29 @@ module Renderable
     def add_renderable( table_name, field_name, field_type = :string, options = {})
       raise ArgumentError "Please specify name of table in add_renderable call in your migration" if table_name.blank?
       raise ArgumentError "Please specify name of field in add_renderable call in your migration" if field_name.blank?
-      
+
       # do we have a suffix specified
       suffix = options.delete(:suffix) { |k| '_rendered' }
-      
+
+      # bugfix: if we don’t specify a field type but do specify options, it snarfs things up, so resolve that here
+      # @TODO: is there a better way of doing this in Ruby?
+      if field_type.is_a? Hash
+
+        # copy field_type hash to options
+        options = field_type
+
+        # default field_type again
+        field_type = :string
+
+      end
+
       # add base column
       add_column table_name, field_name, field_type, options unless column_exists?(table_name, field_name)
 
       # rendered column
-      add_column table_name, "#{field_name}#{suffix}", field_type, options      
+      add_column table_name, "#{field_name}#{suffix}", field_type, options
     end
-    
+
     # Removes a renderable field from the specified table.
     #
     # === Parameters
@@ -47,16 +59,16 @@ module Renderable
     # [suffix]        the custom suffix used when creating the field, if used at all
     #
     def remove_renderable( table_name, field_name, suffix = '_rendered' )
-      
+
       remove_column table_name, field_name if column_exists?(table_name, field_name)
       remove_column table_name, "#{field_name}#{suffix}" if column_exists?(table_name, field_name)
-      
+
     end
-    
+
   end
-  
+
   module TableDefinition
-    
+
     # Adds a renderable field to the current table. This is used inside a create_table block.
     #
     # === Parameters
@@ -67,14 +79,26 @@ module Renderable
     #
     def renderable( field_name, field_type = :string, options = {} )
       raise ArgumentError "Please specify name of field in renderable call in your migration" if field_name.blank?
-      
+
       # get suffix
       suffix = options.delete(:suffix) { |k| '_rendered' }
-      
+
+      # bugfix: if we don’t specify a field type but do specify options, it snarfs things up, so resolve that here
+      # @TODO: is there a better way of doing this in Ruby?
+      if field_type.is_a? Hash
+
+        # copy field_type hash to options
+        options = field_type
+
+        # default field_type again
+        field_type = :string
+
+      end
+
       # add columns
       column field_name, field_type, options
       column "#{field_name}#{suffix}", field_type, options
-      
+
     end
   end
 end
