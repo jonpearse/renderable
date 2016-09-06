@@ -1,8 +1,8 @@
 h1. renderable
 
-@renderable@ is a wee gem I threw together fairly quickly to [a] scratch an itch, and [b] teach myself some new things. 
+@renderable@ is a wee gem I threw together fairly quickly to [a] scratch an itch, and [b] teach myself some new things.
 
-It provides a nice simple hook for automagically converting the content of fields containing "Textile":http://textile.sitemonks.com/ into HTML whenever your ActiveRecord model is saved. 
+It provides a nice simple hook for automagically converting the content of fields containing "Textile":http://textile.sitemonks.com/ into HTML whenever your ActiveRecord model is saved.
 
 h2. Installation
 
@@ -68,9 +68,13 @@ However after a while, I found myself copy-pasting the same @:before_save@ hook 
 
 h2. You’re doing it wrong!/What about %{gem}?
 
-Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot. 
+Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot.
 
 h2. Version history
+
+h3. 1.0.5 (2015-09-06)
+
+* *[FIX]* fixing exception thrown when options are specified without a field type
 
 h3. 1.0.4 (2014-09-11)
 
@@ -89,7 +93,7 @@ h3. 1.0.1 (2014-02-05)
 
 * added @restrictions@ option to @acts_as_renderable@, allowing the ability to pass restrictions (eg @:filter_html@, @:lite_mode@) to RedCloth
 * added clean-up code to make output of @:lite_mode@ a little more sane
-  
+
 h3. 1.0.0 (2013-08-17)
 
 Initial release.
