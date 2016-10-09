@@ -72,6 +72,10 @@ Oh, more than likely. And I’d be _very_ surprised if there wasn’t already so
 
 h2. Version history
 
+h3. 1.0.6 (2016-10-09)
+
+* *[FIX]* made a tweak to the callback terminator that now means `before_*`` callbacks are correctly called _(seems only to affect Rails 5… no idea why)_
+
 h3. 1.0.5 (2015-09-06)
 
 * *[FIX]* fixing exception thrown when options are specified without a field type
