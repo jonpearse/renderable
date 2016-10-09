@@ -6,7 +6,7 @@ module Renderable
 
     module Defining
       def define_renderable_callbacks(*callbacks)
-        define_callbacks *[callbacks, {:terminator => callback_terminator}].flatten
+        define_callbacks *[callbacks, {:terminator => renderable_terminator }].flatten
         callbacks.each do |callback|
           eval <<-end_callbacks
             def before_#{callback}(*args, &blk)
@@ -18,13 +18,15 @@ module Renderable
           end_callbacks
         end
       end
-      
+
       private
-        def callback_terminator
-          if ::ActiveSupport::VERSION::STRING >= '4.1'
-            lambda { |target, result| result == false }
-          else
-            'result == false'
+        def renderable_terminator
+          lambda do |_, result|
+            if result.respond_to?(:call)
+              result.call == false
+            else
+              result == false
+            end
           end
         end
     end
