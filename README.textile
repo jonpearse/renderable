@@ -10,7 +10,7 @@ Is fairly simple.
 
 *1. add @renderable@ to your Gemfile*
 
-<pre>gem "renderable", :git => "git://github.com/jonpearse/renderable.git"</pre>
+<pre>gem "renderable"</pre>
 
 _(you may also need to add RedCloth to your Gemfile… there’s a weird nuance here I’ve not quite understood)_
 
@@ -23,7 +23,7 @@ I have created a couple of migration tasks, though, so you can either do this:
 <pre><code lang="ruby">create_table :my_models do |t|
     t.string :foo
     t.renderable :bar
-    t.integer :baz, :null => false
+    t.integer :baz, null: false
 end</code></pre>
 
 Or this:
@@ -39,7 +39,7 @@ Simply add a call to @acts_as_renderable@ in your model:
 <pre><code lang="ruby">class MyModel < ActiveRecord::Base
     …
     # automatically render ‘body’ and ‘description’ fields
-    acts_as_renderable :fields => [ :body, :description ]
+    acts_as_renderable fields: [ :body, :description ]
     …
 end</code></pre>
 
@@ -71,6 +71,10 @@ h2. You’re doing it wrong!/What about %{gem}?
 Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot.
 
 h2. Version history
+
+h3. 1.0.7 (2017-05-28)
+
+* Releasing as a real gem
 
 h3. 1.0.6 (2016-10-09)
 
