@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.name        = "renderable"
   gem.version     = Renderable::VERSION
 
-  gem.add_dependency('RedCloth', '~> 0')
+  gem.add_dependency('RedCloth', '~> 4.3.0')
 end
