@@ -5,6 +5,8 @@ require 'renderable/version'
 
 require 'renderable/railtie' if defined?(Rails)
 
+require 'RedCloth'
+
 module Renderable
 
   module ClassMethods
