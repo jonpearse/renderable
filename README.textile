@@ -12,8 +12,6 @@ Is fairly simple.
 
 <pre>gem "renderable"</pre>
 
-_(you may also need to add RedCloth to your Gemfile… there’s a weird nuance here I’ve not quite understood)_
-
 *2. add appropriate fields to your database*
 
 Each renderable property of your model requires two database fields—one to store the original Textile content, and the other to store the rendered HTML. By default, this second field has the same name as the first, only with a ‘_rendered’ suffix.
@@ -71,6 +69,10 @@ h2. You’re doing it wrong!/What about %{gem}?
 Oh, more than likely. And I’d be _very_ surprised if there wasn’t already something out there that did this for me… but ultimately, I fancied a bit of a challenge and I learned a lot.
 
 h2. Version history
+
+h3. 1.0.10 (2017-06-20)
+
+* Made renderable include RedCloth by itself
 
 h3. 1.0.9 (2017-05-28)
 
